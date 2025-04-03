@@ -43,5 +43,8 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp"
-    }
+    },
+    "build": {
+        "command": "php artisan storage:link"
+      }
 }
