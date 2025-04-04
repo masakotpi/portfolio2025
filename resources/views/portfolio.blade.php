@@ -26,13 +26,13 @@
                     Menu
                     <i class="fas fa-bars ml-1"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
+                <div class="collapse navbar-collapse fixed-top" id="navbarResponsive" style="background-color:#33200f; position:fix;"> 
+                    <ul class="navbar-nav text-uppercase ml-auto" style="margin-right:300px;">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">home</a></li>                       
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">introduction</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Skills</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                                           </ul>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -40,7 +40,8 @@
     <!-- Masthead-->
     <header class="masthead" id="home">
         <div class="container">
-            <div class="masthead-subheading" style="color: #33200f;">designed by Masako Tanaka</div>
+            <div class="masthead-subheading" style="color: #33200f;
+              text-shadow: 3px 3px 2px rgba(255, 255, 255, 0.6);">designed by Masako Tanaka</div>
             <div class="masthead-heading text-uppercase" id="title">Welcome To my portfolio!</div>
             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#about">Tell Me More</a>
         </div>
@@ -58,7 +59,7 @@
                             alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4>2005-2017</h4>
+                            {{-- <h4>2005-2017</h4> --}}
                             <h4 class="subheading">Import from overseas</h4>
                         </div>
                         <div class="text-left">
@@ -75,7 +76,7 @@
                             alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4>2017-2020</h4>
+                            {{-- <h4>2018-2020</h4> --}}
                             <h4 class="subheading">Design & Marketing </h4>
                         </div>
                         <div class="text-left><p class="text-muted">
@@ -91,16 +92,13 @@
                             alt="" /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4>2020-2024</h4>
+                            {{-- <h4>2020-2025</h4> --}}
                             <h4 class="subheading">Start WEB Engineer career</h4>
                         </div>
                         <div class="text-left">
                             <p class="text-muted">
                                 WEB開発会社のサーバーサイドエンジニアとして
-                                Laravelを使用しECサイトのシステム開発に携わりました。
-                                現在はJavaを使用し、業務系システムの開発に携わっております。
-
-
+                                Laravel,vue.js,AWSなどを使用し主にECサイトのシステム開発に携わりました。
                             </p>
                         </div>
                     </div>
@@ -170,7 +168,7 @@
                     </span>
 
                     <h4 class="my-3">Laravel</h4>
-                    <p class="text-muted">Year of experience : ★★★</p>
+                    <p class="text-muted">Year of experience : ★★★★</p>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -224,8 +222,8 @@
                     <div class="col-lg-6 col-sm-6 mb-4">
                         <div class="portfolio-item">
                             {{-- モーダルの場合 --}}
-                            {{-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2"> --}}
-                            <a class="portfolio-link" href="/orders" target="_blank">
+                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+                            {{-- <a class="portfolio-link" href="/orders" target="_blank"> --}}
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
@@ -255,8 +253,8 @@
                     <div class="col-lg-6 col-sm-6 mb-4">
                         <div class="portfolio-item">
                             {{-- モーダルの場合 --}}
-                            {{-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3"> --}}
-                            <a class="portfolio-link" href="/recipes" target="_blank">
+                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
+                            {{-- <a class="portfolio-link" href="/recipes" target="_blank"> --}}
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
