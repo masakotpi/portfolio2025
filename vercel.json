@@ -48,11 +48,5 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp"
-    },
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/public/$1" }
-    ]
-
-
-
     }
+}
