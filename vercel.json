@@ -31,7 +31,7 @@
         },
         { "src": "^/storage/(.*)", "dest": "/public/storage/$1" },
         {
-            "src": "/(css|js|image)/(.*)",
+            "src": "/(css|js|img)/(.*)",
             "dest": "public/$1/$2"
         }
     ],
