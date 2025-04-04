@@ -12,29 +12,7 @@
             "use": "@vercel/static"
         }
     ],
-    "routes": [
-        {
-            "src": "/build/assets/(.*)",
-            "dest": "/public/build/assets/$1"
-        },
-        {
-            "src": "/favicon.ico",
-            "dest": "/public/favicon.ico"
-        },
-        {
-            "src": "/robots.txt",
-            "dest": "/public/robots.txt"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
-        },
-        { "src": "^/storage/(.*)", "dest": "/public/storage/$1" },
-        {
-            "src": "/(css|js|img)/(.*)",
-            "dest": "public/$1/$2"
-        }
-    ],
+    
     "env": {
         "APP_NAME": "Laravel Vercel",
         "APP_DEBUG": "false",
