@@ -33,7 +33,7 @@
         {
             "src": "/(css|js|image)/(.*)",
             "dest": "public/$1/$2"
-        },
+        }
     ],
     "env": {
         "APP_NAME": "Laravel Vercel",
