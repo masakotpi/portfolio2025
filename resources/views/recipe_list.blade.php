@@ -31,21 +31,37 @@ $color  = [
 <div class="container-fluid">
   <div class="card text-start mb-5">
     <div class="card-body">
-      {{ Form::open(['url'=>route('recipes_list'),'method'=>'get','id'=>'search']) }}
+      <form method="get" action="{{ route('recipes_list') }}" id="search">
       <h4 class="card-title">検索</h4>
       <div class="input-group flex-nowrap my-4">
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">カテゴリー</span>
         </div>
-        {{Form::select('type', $ingredient_type,$request->type,['class'=>'form-control','placeholder'=>'選択してください'])}};
+        <select name="type" class="form-control">
+          <option value="">{{ __('選択してください') }}</option>
+          @foreach($ingredient_type as $key => $value)
+              <option value="{{ $key }}" {{ $request->type == $key ? 'selected' : '' }}>
+                  {{ $value }}
+              </option>
+          @endforeach
+      </select>
+      
       </div>
       <div class="input-group flex-nowrap">
         <div class="input-group-prepend">
           <span class="input-group-text" id="addon-wrapping">レシピ名</span>
         </div>
-        {{Form::select('name',$recipes['names'],$request->name,['class'=>'form-control','placeholder'=>'選択してください'])}};
+        <select name="name" class="form-control">
+          <option value="">{{ __('選択してください') }}</option>
+          @foreach($recipes['names'] as $key => $value)
+              <option value="{{ $key }}" {{ $request->name == $key ? 'selected' : '' }}>
+                  {{ $value }}
+              </option>
+          @endforeach
+      </select>
+      
       </div>
-      {{form::close()}}
+     </form>
     </div>
   </div>
   
@@ -83,7 +99,6 @@ $color  = [
       </tr>
       <tr class="bg-white" style="height:200px">
         <td width="20%">
-          {{Form::open()}}
           <form action="" method="post" enctype="multipart/form-data">
             <div class="imagePreview"></div>
             <div class="input-group">
@@ -94,7 +109,6 @@ $color  = [
               @endif
             </div>
           </form>
-         {{Form::close()}}
 
         </td>
         <td width="30%" class="bg-white">
@@ -117,7 +131,7 @@ $color  = [
     @endforeach<br>
   </div>
 </div>
-{{Form::close()}}
+</form>
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

@@ -222,58 +222,49 @@
                     <div class="col-lg-6 col-sm-6 mb-4">
                         <div class="portfolio-item">
                             {{-- モーダルの場合 --}}
-                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-                            {{-- <a class="portfolio-link" href="/orders" target="_blank"> --}}
+                            {{-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2"> --}}
+                            <a class="portfolio-link" href="/orders" target="_blank">
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 <img class="img-fluid" src="img/portfolio/project1.png" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Product Manager</div>
+                                <div class="portfolio-caption-heading">[laravel] Product Manager</div>
                                 <div class="portfolio-caption-subheading text-muted text-left"><br>
                                     
                                     商品登録・発注・入荷において<br>
-                                    入荷予定管理やPDFにて発注書発行可能なシステムです。<br><br>
+                                    入荷予定管理やPDFにて発注書発行可能なシステムです。<br>
 
                                     <br>機能                                 
                                     <br>・商品CSVダウンロード                                   
                                     <br>・sortableで入荷予定管理                                   
                                     <br>・PDFで発注書発行                                  
-
-                                    <div class="text-center  mt-5">
-                                        PHP Laravel in March 2024
-                                    </div>
-                               
                                 </div>
-
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 mb-4">
                         <div class="portfolio-item">
                             {{-- モーダルの場合 --}}
-                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                            {{-- <a class="portfolio-link" href="/recipes" target="_blank"> --}}
+                            {{-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3"> --}}
+                            <a class="portfolio-link" href="/recipes" target="_blank">
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 <img class="img-fluid" src="img/portfolio/project2.png" alt="" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Easy Recipe</div>
+                                <div class="portfolio-caption-heading">[laravel] Easy Recipe</div>
                                 <div class="portfolio-caption-subheading text-muted text-left"> <br>
                                     材料や工程を登録してしまえば,あとは<br>
-                                    ボタンをクリックするだけで手軽にレシピを作成できます。<br><br>
+                                    ボタンをクリックするだけで手軽にレシピを作成できます。<br>
                            
                                         <br>機能
                                         <br>・レシピ一覧で画像登録、レシピ検索                                  
                                         <br>・カテゴリー別にレシピを登録可能。                                  
                                         <br>・クリック一つでレシピ作成。                                 
 
-                                    <div class="text-center mt-5">
-                                    PHP Laravel in August 2024
-                                    </div>
                             </div>
                         </div>
                     </div>

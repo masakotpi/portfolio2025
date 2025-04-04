@@ -17,7 +17,7 @@ use App\Http\Controllers\MakerController;
 |
 */
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
   //材料マスタ一覧
   Route::get('/mst_ingredients', [RecipeController::class, 'mstIngredientsIndex'])->name('mst_ingredients_index');
@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
   //工程マスタ削除
   Route::delete('/mst_processes/{id}', [RecipeController::class, 'mstprocessDelete'])->name('mst_process_delete');
   
-  ##########################################
-  
+  ########################################p##
+logger("tesut");
   //レシピ一覧
   Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes_list');
   //レシピ詳細
@@ -60,4 +60,4 @@ Route::middleware('auth')->group(function () {
   //工程削除
   Route::delete('/process/{id}', [RecipeController::class, 'processDelete'])->name('process_delete');
   
-});
+// });
