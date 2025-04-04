@@ -29,7 +29,11 @@
             "src": "/(.*)",
             "dest": "/api/index.php"
         },
-        { "src": "^/storage/(.*)", "dest": "/public/storage/$1" }
+        { "src": "^/storage/(.*)", "dest": "/public/storage/$1" },
+        {
+            "src": "/(css|js|image)/(.*)",
+            "dest": "public/$1/$2"
+        },
     ],
     "env": {
         "APP_NAME": "Laravel Vercel",
