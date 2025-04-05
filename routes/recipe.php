@@ -16,12 +16,11 @@ use App\Http\Controllers\MakerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 // Route::middleware('auth')->group(function () {
 
 //材料マスタ一覧
 Route::get('/mst_ingredients', [RecipeController::class, 'mstIngredientsIndex'])->name('mst_ingredients_index');
-//材料マスタ登録
+//材料マスタ登録p
 Route::post('/mst_ingredients', [RecipeController::class, 'mstIngredientsStore'])->name('mst_ingredients_store');
 //材料マスタ更新
 Route::put('/mst_ingredients/{id}', [RecipeController::class, 'mstIngredientsUpdate'])->name('mst_ingredients_update');

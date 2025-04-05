@@ -122,10 +122,12 @@ class RecipeController extends Controller
      * レシピ一覧
      */
     public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
+    // public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
     {
         logger("コントロールまで来たよ");
-        $recipes =  $usecase->__invoke($request);
-        return view('recipe_list', compact('recipes','request'));
+        return view('recipe_list')
+        // $recipes =  $usecase->__invoke($request);
+        // return view('recipe_list', compact('recipes','request'));
     }
     /**
      * レシピ詳細
