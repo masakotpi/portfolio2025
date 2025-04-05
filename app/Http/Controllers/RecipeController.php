@@ -126,7 +126,7 @@ class RecipeController extends Controller
         logger("コントロールまで来たよ");
         $recipes = Recipe::query()->with('ingredient.mstIngredient','process')->get();
         // return view('portfolio');
-        return view('portfolio',['recipes' =>$recipes]);
+        return view('portfolio');
 
     }
     // /**
