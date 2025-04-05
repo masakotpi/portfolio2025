@@ -21,7 +21,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg fixed-top" style="color: #33200f;" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/navbar-logo.svg" alt="" /></a>
+                {{-- <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/navbar-logo.svg" alt="" /></a> --}}
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ml-1"></i>
@@ -388,7 +388,7 @@
 
 
                                 </p><a href="/orders">
-                                    <img class="img-fluid d-block mx-auto" src="img/portfolio/portfolio-3.png"
+                                    {{-- <img class="img-fluid d-block mx-auto" src="img/portfolio/portfolio-3.png" --}}
                                         alt="" /></a>
                                 <ul class="list-inline">
                                     <li>Date: March 2022</li>
