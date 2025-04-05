@@ -15,6 +15,7 @@ class GetRecipesRequest extends FormRequest
      */
     public function authorize()
     {
+        logger("コントロールまで来たよ1");
         return false;
     }
 
@@ -24,6 +25,7 @@ class GetRecipesRequest extends FormRequest
      */
     public function rules()
     {
+        logger("コントロールまで来たよ2");
         return [
             'type'       => ['nullable','string'],
             'name'       => ['nullable','string'],
