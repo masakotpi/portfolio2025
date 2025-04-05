@@ -5,7 +5,7 @@
         "build": "vite build",
         "dev": "npm run development",
         "development": "webpack --config=webpack.mix.js --env=development",
-        "production": "webpack --config=src/webpack.mix.js --env=production"
+        "production": "webpack --config=webpack.mix.js --env=production"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
