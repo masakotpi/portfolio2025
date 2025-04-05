@@ -120,6 +120,14 @@ class RecipeController extends Controller
     /**
      * レシピ一覧
      */
+    public function index2():view
+    {
+        logger("コントロールまで来たよ");
+        return view('portfolio');
+    }
+    /**
+     * レシピ一覧
+     */
     public function index(Request $request, RecipeIndexUsecase $usecase):view
     {
         logger("コントロールまで来たよ");
