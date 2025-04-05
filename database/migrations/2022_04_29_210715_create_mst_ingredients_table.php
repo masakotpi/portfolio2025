@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        DB::rollBack(); 
         Schema::create('mst_ingredients', function (Blueprint $table) {
             $table->id();
             $table->string('type')->comment('種類');//カンマ区切り：1焼き菓子

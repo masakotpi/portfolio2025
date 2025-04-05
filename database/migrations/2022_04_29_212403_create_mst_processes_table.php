@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        DB::rollBack(); 
         Schema::create('mst_processes', function (Blueprint $table) {
             $table->id();
             $table->string('type');

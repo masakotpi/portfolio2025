@@ -122,6 +122,7 @@ class RecipeController extends Controller
      */
     public function index(Request $request, RecipeIndexUsecase $usecase):view
     {
+        logger("コントロールまで来たよ");
         $recipes =  $usecase->__invoke($request);
         return view('recipe_list', compact('recipes','request'));
     }

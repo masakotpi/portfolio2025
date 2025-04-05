@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        DB::rollBack(); 
         Schema::create('makers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

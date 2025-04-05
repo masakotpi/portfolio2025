@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        DB::rollBack(); 
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_by')->comment('順番');

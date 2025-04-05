@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        DB::rollBack(); 
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->integer('type')->nullable()->comment('タイプ');
