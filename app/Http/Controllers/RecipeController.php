@@ -117,18 +117,26 @@ class RecipeController extends Controller
     }
 
     #################################################################################
-
     /**
      * レシピ一覧
      */
-    public function index():view
-    // public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
+    public function index(RecipeIndexUsecase $usecase):view
     {
         logger("コントロールまで来たよ");
-        return view('portfolio');
-        // $recipes =  $usecase->__invoke($request);
-        // return view('recipe_list', compact('recipes','request'));
+        $recipes =  $usecase->__invoke();
+        return view('recipe_list', compact('recipes','request'));
     }
+    // /**
+    //  * レシピ一覧
+    //  */
+    // public function index():view
+    // // public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
+    // {
+    //     logger("コントロールまで来たよ");
+    //     return view('portfolio');
+    //     // $recipes =  $usecase->__invoke($request);
+    //     // return view('recipe_list', compact('recipes','request'));
+    // }
     /**
      * レシピ詳細
      */
