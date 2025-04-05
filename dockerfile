@@ -1,50 +1,25 @@
-# ベースイメージ（PHP + Composer インストール済み）
-FROM php:8.2-fpm
+FROM php:8.1-fpm
 
-# 必要なシステムパッケージをインストール
+# 必要なパッケージや拡張のインストール
 RUN apt-get update && apt-get install -y \
     unzip \
-    git \
-    curl \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    nginx \
-    supervisor \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    libzip-dev \
+    && docker-php-ext-install zip pdo pdo_mysql
 
-# Composer を公式からインストール
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Composer のインストール（公式イメージからコピー）
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 作業ディレクトリ
+# 作業ディレクトリの設定
 WORKDIR /var/www
 
-# アプリケーションコードをコピー
+# アプリケーションのファイルをコピー
 COPY . /var/www
 
-# パーミッション設定
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
-
-# Nginx 設定
-COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Supervisor 設定
-COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Laravel パッケージインストール
+# Composer の依存関係インストール
 RUN composer install --no-dev --optimize-autoloader
 
-# Laravel キャッシュ系
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# キャッシュの生成（オプション）
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
-# ポート公開
-EXPOSE 80
-
-# 起動コマンド（nginx + php-fpm）
-CMD ["/usr/bin/supervisord"]
+# コンテナ起動時に PHP-FPM を実行
+CMD ["php-fpm"]
