@@ -39,7 +39,6 @@ Route::delete('/mst_processes/{id}', [RecipeController::class, 'mstprocessDelete
 
 ##########################################
 //レシピ一覧
-Route::get('/recipes2', [RecipeController::class, 'index2'])->name('recipes_list2');
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes_list');
 //レシピ詳細
 Route::get('/recipes/{id}', [RecipeController::class, 'recipeShow'])->name('recipes_show');

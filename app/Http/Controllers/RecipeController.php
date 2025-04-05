@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MstIngredientStoreRequest;
+use App\Http\Requests\GetRecipesRequest;
 use App\Http\Requests\MstProcessesStoreRequest;
 use App\Http\Requests\IngredientStoreRequest;
 use App\Domain\Usecases\EasyRecipes\IngredientsIndexUsecase;
@@ -120,15 +121,7 @@ class RecipeController extends Controller
     /**
      * レシピ一覧
      */
-    public function index2():view
-    {
-        logger("コントロールまで来たよ");
-        return view('portfolio');
-    }
-    /**
-     * レシピ一覧
-     */
-    public function index(Request $request, RecipeIndexUsecase $usecase):view
+    public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
     {
         logger("コントロールまで来たよ");
         $recipes =  $usecase->__invoke($request);
