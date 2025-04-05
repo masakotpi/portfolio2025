@@ -37,7 +37,6 @@ Route::put('/mst_processes/{id}', [RecipeController::class, 'mstprocessUpdate'])
 Route::delete('/mst_processes/{id}', [RecipeController::class, 'mstprocessDelete'])->name('mst_process_delete');
 
 ##########################################
-logger("ルートにいます。");
 //レシピ一覧
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes_list');
 //レシピ詳細
