@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Recipe;
 use Exception;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -120,10 +121,10 @@ class RecipeController extends Controller
     /**
      * レシピ一覧
      */
-    public function index(RecipeIndexUsecase $usecase):view
+    public function index():view
     {
         logger("コントロールまで来たよ");
-        $recipes =  $usecase->__invoke();
+        $recipes = Recipe::query()->with('ingredient.mstIngredient','process')->get();
         return view('recipe_list', compact('recipes'));
     }
     // /**
