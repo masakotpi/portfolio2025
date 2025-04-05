@@ -1,34 +1,50 @@
-# ベースイメージ（PHP + Apache + Composer）
-FROM php:8.2-apache
+# ベースイメージ（PHP + Composer）
+FROM php:8.2-fpm
 
-# 必要なパッケージをインストール
+# システム依存パッケージのインストール
 RUN apt-get update && apt-get install -y \
-    git unzip curl libpng-dev libonig-dev libxml2-dev zip nodejs npm \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+    build-essential \
+    libpng-dev \
+    libjpeg-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    nginx \
+    supervisor \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Composer インストール
+# Composer のインストール
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# ApacheのDocumentRootをLaravelのpublicに設定
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+# 作業ディレクトリの設定
+WORKDIR /var/www
 
-# Laravel アプリケーションをコピー
-COPY . /var/www/html
+# Laravel アプリケーションのソースをコピー
+COPY . /var/www
 
-WORKDIR /var/www/html
+# 権限の設定
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage
 
-# Laravel の依存関係をインストール
+# Nginx 設定を追加
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Supervisor 設定
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Laravel の依存パッケージインストール
 RUN composer install --no-dev --optimize-autoloader
 
-# Laravel のフロントエンド（Vite）ビルド
-RUN npm install && npm run build
+# Laravel の設定系
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
 
-# Laravel 初期セットアップ
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-
-# 権限を調整
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Apache 起動
+# ポート開放
 EXPOSE 80
-CMD ["apache2-foreground"]
+
+# Supervisor 経由で Nginx + PHP を起動
+CMD ["/usr/bin/supervisord"]
