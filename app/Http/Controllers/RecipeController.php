@@ -121,7 +121,7 @@ class RecipeController extends Controller
     /**
      * レシピ一覧
      */
-    public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
+    public function index():view
     // public function index(GetRecipesRequest $request, RecipeIndexUsecase $usecase):view
     {
         logger("コントロールまで来たよ");
