@@ -124,8 +124,7 @@ class RecipeController extends Controller
     public function index():view
     {
         logger("コントロールまで来たよ");
-        $recipes = MstIngredient::get();
-        // return view('portfolio');
+        $recipes = ["data" => "nikonama"];
         return view('portfolio');
 
     }
