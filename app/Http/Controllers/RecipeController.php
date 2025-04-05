@@ -124,7 +124,7 @@ class RecipeController extends Controller
     public function index():view
     {
         logger("コントロールまで来たよ");
-        // $recipes = Recipe::query()->with('ingredient.mstIngredient','process')->get();
+        $recipes = Recipe::with('ingredient.mstIngredient','process')->get();
         // return view('portfolio');
         return view('portfolio');
 
