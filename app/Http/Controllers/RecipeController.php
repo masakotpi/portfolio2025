@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Recipe;
+use App\Models\MstIngredient;
 use Exception;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -124,7 +124,7 @@ class RecipeController extends Controller
     public function index():view
     {
         logger("コントロールまで来たよ");
-        $recipes = Recipe::get();
+        $recipes = MstIngredient::get();
         // return view('portfolio');
         return view('portfolio');
 
