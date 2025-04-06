@@ -10,24 +10,8 @@
         {
             "src": "/public/**",
             "use": "@vercel/static"
-        },
-        {
-            "src": "public/storage",
-            "use": "@vercel/static",
-            "config": {
-              "headers": [
-                {
-                  "source": "/storage/(.*)",
-                  "headers": [
-                    {
-                      "key": "Cache-Control",
-                      "value": "max-age=0, s-maxage=31536000, stale-while-revalidate=59"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
+        }
+        
     ],
     
     "env": {
