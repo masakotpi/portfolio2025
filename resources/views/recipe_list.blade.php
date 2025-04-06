@@ -106,7 +106,7 @@ $color  = [
             <div class="imagePreview"></div>
             <div class="input-group">
               @if ($recipe->main_image)
-              <img src="{{Storage::url($recipe->main_image)}}" width="100%" id="main_image{{$index}}">
+              <img src="/{{$recipe->main_image)}}" width="100%" id="main_image{{$index}}">
               @else
               <img src="{{Storage::url($recipe->main_image)}}" class="d-none" width="100%" id="main_image{{$index}}">
               @endif
