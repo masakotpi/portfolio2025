@@ -50,7 +50,7 @@
         </table>
     </form>
     
-       {{-- 更新 --}}
+       {{-- 登録 --}}
     <td><button type="submit" formaction="/mst_ingredients" class="button btn-primary btn-sm">登録</button></td>
     </form>
     </tr>
@@ -64,13 +64,13 @@
   <td><input type="text" name="cost" value="{{ $ingredient->cost }}" class="form-control" form="form{{ $index }}"></td>
 
     {{-- 削除 --}}
-    <form method="post" id="delete{{ $index }}">
+    <form method="DELETE" id="delete{{ $index }}">
       <input type="hidden" name="_method" value="DELETE">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <td><button formtype="submit" formaction="/mst_ingredients/{{$ingredient->id}}/{{$type}}" class="button btn-danger btn-sm">削除</button></td>
     </form>
     {{-- 更新 --}}
-    <form method="post" id="form{{ $index }}">
+    <form method="PUT" id="form{{ $index }}">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <td><button type="submit" formaction="/mst_ingredients/{{$ingredient->id}}" class="button btn-primary btn-sm">更新</button></td>
