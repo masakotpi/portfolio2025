@@ -88,7 +88,9 @@ class RecipeController extends Controller
     public function mstProcessStore(MstProcessesStoreRequest $request, MstProcessesStoreUsecase $usecase):RedirectResponse
     {
         $usecase->__invoke($request->filter());
+        
         return redirect()->back()->with('flash_message','工程を登録しました。');
+
     }
     /**
      * 工程マスター更新
@@ -109,7 +111,8 @@ class RecipeController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            return back()->withErrors($e->getMessage());
+            
+            return back()->withErrors("工程削除失敗しました：".$e->getMessage());
         }
         return redirect()->back()->with('flash_message','材料を削除しました。');
     }
@@ -226,12 +229,20 @@ class RecipeController extends Controller
     }
 
     /**
-     * 材料削除
+     * 工程削除
      */
     public function processDelete(int $id)
     {
-        $recipe =  Process::destroy($id);
+        try {
+            DB::beginTransaction();
+            $recipe =  Process::destroy($id);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->withErrors($e->getMessage());
+        }
         return redirect()->back()->with('flash_message','工程を削除しました');
+
     }
     /**
      * 画像アップロード登録
@@ -240,8 +251,8 @@ class RecipeController extends Controller
      */
     public function upload(UploadImageRequest $request, UploadImageUsecase $usecase)
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $data = $usecase->__invoke($request->all());
             DB::commit();
         } catch (Exception $e) {

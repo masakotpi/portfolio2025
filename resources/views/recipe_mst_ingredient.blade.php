@@ -37,7 +37,8 @@
       <td widtd="15%">費用</td>
     </tr>
     <tr>
-      <form method="post">
+      <form method="post" action="/mst_ingredients">
+        @csrf
         <table>
             <tr>
                 <td width="40%"><input type="text" name="name" class="form-control"></td>
@@ -48,27 +49,28 @@
                 <td></td>
             </tr>
         </table>
+        {{-- 登録 --}}
+        <button type="submit" class="button btn-primary btn-sm">登録</button>
     </form>
     
-       {{-- 登録 --}}
-    <td><button type="submit" formaction="/mst_ingredients" class="button btn-primary btn-sm">登録</button></td>
-    </form>
     </tr>
   </thead>
   @foreach($ingredients as $index => $ingredient)
   <tr class="my-0">
-  <td width="40%"><input type="text" name="name" value="{{ $ingredient->name }}" class="form-control" form="form{{ $index }}"></td>
+  <td width="40%" style="margin-right;3px;"><input type="text" name="name" value="{{ $ingredient->name }}" class="form-control" form="form{{ $index }}"></td>
   <td><input type="hidden" name="id" value="{{ $ingredient->id }}" form="form{{ $index }}"></td>
   <td><input type="text" name="unit" value="{{ $ingredient->unit }}" class="form-control" form="form{{ $index }}"></td>
   <td><input type="text" name="amount" value="{{ $ingredient->amount }}" class="form-control" form="form{{ $index }}"></td>
   <td><input type="text" name="cost" value="{{ $ingredient->cost }}" class="form-control" form="form{{ $index }}"></td>
 
     {{-- 削除 --}}
-    <form method="DELETE" id="delete{{ $index }}">
+    <form method="post" id="delete{{ $index }}" action="/mst_ingredients/{{$ingredient->id}}/{{$type}}">
+      @csrf
       <input type="hidden" name="_method" value="DELETE">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <td><button formtype="submit" formaction="/mst_ingredients/{{$ingredient->id}}/{{$type}}" class="button btn-danger btn-sm">削除</button></td>
-    </form>
+      <input type="hidden" name="id" value="{{$ingredient->id}}">
+      <input type="hidden" name="type" value="{{$type}}">
+      <td><button type="submit" class="button btn-danger btn-sm">削除</button></td>
+  </form>
     {{-- 更新 --}}
     <form method="PUT" id="form{{ $index }}">
       <input type="hidden" name="_method" value="PUT">

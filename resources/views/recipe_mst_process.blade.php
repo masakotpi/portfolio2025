@@ -20,14 +20,14 @@ $INGREDIENT_TYPE = [
 
 @section('content')
 @foreach($INGREDIENT_TYPE as $index => $mst_process)
-{{Form::open(['method' => 'get','id' => 'getindex'.$index, 'class'=>"d-inline"])}}
-  {{Form::hidden('type',$index,['form'=>'getindex'.$index])}}
+<form method="get" id="getindex{{$index}}" class="d-inline">
+  <input type="hidden" name="type" value="{{$index}}" form="getindex{{$index}}" >
   @if($type == $index)
-  <button formtype="submit" formaction="{{route('mst_process_index')}}" class="button btn-success btn-sm">{{$mst_process}}</button>
+  <button formtype="submit" formaction="/mst_processes" class="button btn-success btn-sm">{{$mst_process}}</button>
   @else
-  <button formtype="submit" formaction="{{route('mst_process_index')}}" class="button btn-secondary btn-sm">{{$mst_process}}</button>
+  <button formtype="submit" formaction="/mst_processes" class="button btn-secondary btn-sm">{{$mst_process}}</button>
   @endif
-{{Form::close()}}
+</form>
 @endforeach
 
 <table class="table">
@@ -36,24 +36,34 @@ $INGREDIENT_TYPE = [
       <td widtd="60%">工程</td>
     </tr>
     <tr>
-      {{Form::open(['method' => 'post'])}}
-      {{Form::hidden('type',$type)}}
-      <td>{{Form::text('process','',['class' =>'form-control','placeholder'=>'新規登録'])}}</td>
-      <td><button type="submit" formaction="{{route('mst_process_store')}}" class="button btn-primary btn">新規登録</button></td>
-        {{Form::close()}}
+      {{-- 登録 --}}
+      <form method="post" action="/mst_processes">
+        @csrf
+        <td><input type="hidden" name="type" value="{{$type}}"><input type="text" name="process" value=""  class="form-control" placeholder='新規登録'> </td>
+        <td> <button type="submit" class="button btn-primary btn">新規登録</button> </td>
+      </form>
+    </td>
     </tr>
   </thead>
   @foreach($mst_processes as $index => $mst_process)
   <tr class="my-5">
-    {{Form::hidden('id',$mst_process->id,['form'=>'form'.$index])}}
-    {{Form::hidden('type',$mst_process->type,['form'=>'form'.$index])}}
-    <td>{{Form::text('process',$mst_process->process,['class' =>'form-control', 'form'=>'form'.$index])}}</td>
-    {{Form::open(['method' => 'put', 'id' =>'form'.$index])}}
-    <td><button id='form'.$index type="submit" formaction="{{route('mst_process_update',['id' => $mst_process->id])}}" class="button btn-primary btn">更新</button></td>
-    {{Form::close()}}
-    {{Form::open(['method' => 'delete', 'id' =>'delete'.$index])}}
-    <td><button formtype="submit" formaction="{{route('mst_process_delete',['id' => $mst_process->id])}}" class="button btn-danger btn">削除</button></td>
-    {{Form::close()}}
+    {{-- 更新 --}}
+    <form method="post" id="form{{$index}}"  action="/mst_processes/{{$mst_process->id}}">
+      @csrf
+      @method('PUT')
+    <input type="hidden" name="id" value="{{$mst_process->id}}" form="form{{$index}}">
+    <input type="hidden" name="type" value="{{$mst_process->type}}" form="form{{$index}}">
+    <td><input type="text" name="process" value="{{$mst_process->process}}" form="form{{$index}}" class ="form-control"></td>
+    
+    <td><button type="submit"  class="button btn-primary btn">更新</button></td>
+    </form>
+
+     {{-- 削除 --}}
+     <form method="post" id="delete{{$index}}" action="/mst_processes/{{$mst_process->id}}" >@csrf
+     @csrf
+     @method('delete')
+    <td><button type="submit" class="button btn-danger btn">削除</button></td>
+    </form>
   </tr>
   @endforeach
 </table>

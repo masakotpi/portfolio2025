@@ -20,12 +20,12 @@ use App\Http\Controllers\MakerController;
 
 //材料マスタ一覧
 Route::get('/mst_ingredients', [RecipeController::class, 'mstIngredientsIndex'])->name('mst_ingredients_index');
-//材料マスタ登録p
+//材料マスタ登録
 Route::post('/mst_ingredients', [RecipeController::class, 'mstIngredientsStore'])->name('mst_ingredients_store');
-//材料マスタ更新
-Route::put('/mst_ingredients/{id}', [RecipeController::class, 'mstIngredientsUpdate'])->name('mst_ingredients_update');
 //材料マスタ削除
 Route::delete('/mst_ingredients/{id}/{type}', [RecipeController::class, 'mstIngredientsDelete'])->name('mst_ingredients_delete');
+//材料マスタ更新
+Route::put('/mst_ingredients/{id}', [RecipeController::class, 'mstIngredientsUpdate'])->name('mst_ingredients_update');
 
 //工程マスタ一覧
 Route::get('/mst_processes', [RecipeController::class, 'mstprocessIndex'])->name('mst_process_index');
