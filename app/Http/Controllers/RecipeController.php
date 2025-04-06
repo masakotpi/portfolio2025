@@ -157,7 +157,7 @@ class RecipeController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            return back()->withErrors($e->getMessage());
+            return back()->withErrors("材料登録に失敗しました。：".$e->getMessage());
         }
         if($request['recipe_id']){
             return back()->with('flash_message','材料を追加しました');
