@@ -4,7 +4,7 @@ use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
-
+use App\Models\MstIngredient;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +18,8 @@ use App\Http\Controllers\Api\UserController;
 */
 
 Route::get('/nikoniko', function () {
-  return response()->json([
-      'name' => 'John Doe',
-      'email' => 'john@example.com'
-  ]);
+  $data = MstIngredient::get();
+  return response()->json($data);
 });
 
 
