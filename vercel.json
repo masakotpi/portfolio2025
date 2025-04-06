@@ -12,6 +12,16 @@
             "use": "@vercel/static"
         }
     ],
+    "routes": [
+        {
+            "src": "/build/(.*)",
+            "dest": "/public/build/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "api/index.php"
+        }
+    ],
     
     "env": {
         "APP_NAME": "Laravel Vercel",
@@ -35,15 +45,5 @@
         "DB_PASSWORD" : "npg_s1CAzjOcnbH9",
         "DATABASE_URL" : "postgres://neondb_owner:npg_s1CAzjOcnbH9@ep-twilight-unit-a1waa9ob-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
         
-    },
-    "rewrites": [
-        { "source": "/", "destination": "/api/index.php" },
-        { "source": "/(.*\\.jpg)", "destination": "/public/$1" },
-        { "source": "/(.*\\.png)", "destination": "/public/$1" },
-        { "source": "/(.*\\.css)", "destination": "/public/$1" },
-        { "source": "/(.*\\.js)", "destination": "/public/$1" },
-        { "source": "/(.*\\.svg)", "destination": "/public/$1" },
-        { "source": "/(.*\\.ico)", "destination": "/public/$1" },
-        { "source": "/(.*)", "destination": "/api/index.php" }
-      ]
+    }
 }
