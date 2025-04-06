@@ -3,11 +3,21 @@
 @section('title')
 材料マスター更新
 @endsection
-
-
+@php
+ const INGREDIENT_TYPE = [
+    1 => 'お菓子',
+    2 => 'パン',
+    3 => 'サラダ',
+    4 => '魚介類',
+    5 => '肉料理',
+    6 => 'ご飯',
+    7 => '麺類',
+    8 => 'スープ',
+];
+@endphp
 
 @section('content')
-  @foreach(App\Consts\RecipeConst::INGREDIENT_TYPE as $index => $ingredient)
+  @foreach(INGREDIENT_TYPE as $index => $ingredient)
   <form method="get" id="getindex{{ $index }}" class="d-inline">
     <input type="hidden" name="type" value="{{ $index }}" form="getindex{{ $index }}">
     @if($type == $index)
