@@ -39,7 +39,8 @@
 </table>
 
 
-<button type="submit"  formaction="{{route('ingredients_store')}}" class="btn btn-primary px-4 d-block submit"><b>送信</b></button>
+<button type="submit"  formaction="/ingredients" class="btn btn-primary px-4 d-block submit"><b>送信</b></button>
+{{-- <button type="submit"  formaction="{{route('ingredients_store')}}" class="btn btn-primary px-4 d-block submit"><b>送信</b></button> --}}
 </form>
 
 <!-- 材料登録モーダル -->
@@ -53,7 +54,8 @@
       <div class="modal-body">
         <table class="table">
           <thead>
-            <form method="POST" action="{{ route('mst_ingredients_store') }}">
+            <form method="POST" action="/mst_ingredients">
+            {{-- <form method="POST" action="{{ route('mst_ingredients_store') }}"> --}}
               @csrf
             
               <input type="hidden" name="type" value="{{ $type }}" class="form-control form-control-sm mb-3">
