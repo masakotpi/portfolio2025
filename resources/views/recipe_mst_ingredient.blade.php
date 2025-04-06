@@ -73,7 +73,7 @@
     <form method="post" id="form{{ $index }}">
       <input type="hidden" name="_method" value="PUT">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <td><button type="submit" formaction="{{route('mst_ingredients_update',['id' => $ingredient->id])}}" class="button btn-primary btn-sm">更新</button></td>
+    <td><button type="submit" formaction="/mst_ingredients/{{$ingredient->id}}" class="button btn-primary btn-sm">更新</button></td>
     </form>
   </tr>
   @endforeach
