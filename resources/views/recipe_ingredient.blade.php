@@ -5,14 +5,22 @@
 @endsection
 
 @section('content')
-{{Form::open(['method' => 'post', 'id' =>'form'])}}
-<div class="float-right">
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newIngredientModal">材料マスター登録</button>
-</div>
-<small>レシピ名</small>
-{{Form::text('name','スコーン',['class' => 'form-control form-control-sm mb-3','form' =>'form'])}}
-{{Form::hidden('type',$type,['class' => 'form-control form-control-sm mb-3','form' =>'form'])}}
-{{$type}}
+<form method="post" id="form">
+  @csrf
+
+  <div class="float-right">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newIngredientModal">
+      材料マスター登録
+    </button>
+  </div>
+
+  <small>レシピ名</small>
+  <input type="text" name="name" value="{{ old('name', 'スコーン') }}" class="form-control form-control-sm mb-3" form="form">
+
+  <input type="hidden" name="type" value="{{ $type }}" class="form-control form-control-sm mb-3" form="form">
+
+  {{ $type }}
+
 
 @foreach($ingredients as $ingredient)
 <button type="button" class="btn-pink ingredient" data="{{$ingredient}}">{{$ingredient->name}}</button>
@@ -32,8 +40,7 @@
 
 
 <button type="submit"  formaction="{{route('ingredients_store')}}" class="btn btn-primary px-4 d-block submit"><b>送信</b></button>
-
-{{Form::close()}}
+</form>
 
 <!-- 材料登録モーダル -->
 <div class="modal fade" id="newIngredientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
