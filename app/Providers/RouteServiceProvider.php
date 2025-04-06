@@ -73,6 +73,7 @@ class RouteServiceProvider extends ServiceProvider
         // 'product_manager.php',
         'portfolio.php',
         'recipe.php',
+        'api.php',
     ];
 
 
