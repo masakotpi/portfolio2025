@@ -31,7 +31,7 @@ $color  = [
 <div class="container-fluid">
   <div class="card text-start mb-5">
     <div class="card-body">
-      {{-- <form action="{{ route('recipes_list') }}" method="get" id="search">
+      <form action="{{ route('recipes_list') }}" method="get" id="search">
 
       <h4 class="card-title">検索</h4>
       <div class="input-group flex-nowrap my-4">
@@ -56,7 +56,7 @@ $color  = [
           @endforeach
       </select>
       </div>
-      </form> --}}
+      </form>
     </div>
   </div>
   
