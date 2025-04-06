@@ -56,7 +56,5 @@
 
         { "source": "/(.*)", "destination": "/api/index.php" }
       ],
-      "scripts": {
-        "postbuild": "ln -s /path/to/storage/app/public /path/to/public/storage"
-      }
+
 }
