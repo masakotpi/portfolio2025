@@ -18,8 +18,11 @@ use App\Models\MstIngredient;
 */
 
 Route::get('/nikoniko', function () {
-  $data = MstIngredient::get();
-  return response()->json($data);
+  // $data = MstIngredient::get();
+  return response()->json([
+      'name' => 'John Doe',
+      'email' => 'john@example.com'
+  ]);
 });
 
 
