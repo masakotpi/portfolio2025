@@ -9,7 +9,7 @@
         <title>@yield('title')</title>
         <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{{ asset('css/recipe.css') }}" >
+        <link rel="stylesheet" href="/css/recipe.css" >
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
