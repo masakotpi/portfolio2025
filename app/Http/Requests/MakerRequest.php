@@ -14,7 +14,7 @@ class MakerRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true; //Auth::check();
     }
 
     /**
@@ -25,11 +25,11 @@ class MakerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'                  => ['required','string'],
-            'country'               => ['required','string'],
-            'person_in_charge'      => ['required','string'],
-            'address'               => ['required','string'],
-            'tel'                   => ['required','string'],
+            'name' => ['required', 'string'],
+            'country' => ['required', 'string'],
+            'person_in_charge' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'tel' => ['required', 'string'],
         ];
     }
     /**
@@ -40,12 +40,12 @@ class MakerRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'              => 'メーカー名',
-            'country'           => '国',
-            'person_in_charge'  => '担当者',
-            'address'           => '住所',
-            'tel'               => 'TEL',
-            
+            'name' => 'メーカー名',
+            'country' => '国',
+            'person_in_charge' => '担当者',
+            'address' => '住所',
+            'tel' => 'TEL',
+
         ];
     }
     /**
@@ -56,11 +56,11 @@ class MakerRequest extends FormRequest
     public function data()
     {
         return [
-            'name'              => $this->name,
-            'country'           => $this->country,
-            'person_in_charge'  => $this->person_in_charge,
-            'address'           => $this->address,
-            'tel'               => $this->tel,
+            'name' => $this->name,
+            'country' => $this->country,
+            'person_in_charge' => $this->person_in_charge,
+            'address' => $this->address,
+            'tel' => $this->tel,
         ];
     }
 }

@@ -15,7 +15,7 @@ class IngredientStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true; //Auth::check();
     }
 
     /**
@@ -25,10 +25,10 @@ class IngredientStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'       => ['required','string'],
-            'mst_ingredient_id.*'     => ['required','string','distinct'],
-            'name'                  => ['required','string'],
-            'amount.*'              => ['required','integer','min:1'],
+            'type' => ['required', 'string'],
+            'mst_ingredient_id.*' => ['required', 'string', 'distinct'],
+            'name' => ['required', 'string'],
+            'amount.*' => ['required', 'integer', 'min:1'],
         ];
     }
     /**
@@ -39,11 +39,11 @@ class IngredientStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'type'                  =>  'タイプ',
-            'mst_ingredient_id.*'   =>  '材料名',
-            'name'                  =>  'レシピ名',
-            'amount.*'                =>  '分量',
-            'unit'                  =>  '単位',
+            'type' => 'タイプ',
+            'mst_ingredient_id.*' => '材料名',
+            'name' => 'レシピ名',
+            'amount.*' => '分量',
+            'unit' => '単位',
         ];
     }
     /**
@@ -54,11 +54,11 @@ class IngredientStoreRequest extends FormRequest
     public function filter()
     {
         return [
-            'type'          => $this->type,
-            'mst_ingredient_id'  => $this->mst_ingredient_id,
-            'name'          => $this->name,
-            'amount'          => $this->amount,
-            'unit'          => $this->unit,
+            'type' => $this->type,
+            'mst_ingredient_id' => $this->mst_ingredient_id,
+            'name' => $this->name,
+            'amount' => $this->amount,
+            'unit' => $this->unit,
         ];
     }
 }

@@ -14,8 +14,8 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        
-        return Auth::check();
+
+        return true; //Auth::check();
     }
 
     /**
@@ -26,14 +26,14 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_number'          => ['required','string'],
-            'product_id'            => ['required','integer','exists:products,id'],
-            'maker_id'              => ['required','integer','exists:makers,id'],
-            'quantity'              => ['required','integer'],
-            'color'                 => ['required','string'],
-            'per_case'              => ['required','integer'],
-            'expected_arrival_date' => ['required','date'],
-            'order_by'              => ['required','integer'],
+            'order_number' => ['required', 'string'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'maker_id' => ['required', 'integer', 'exists:makers,id'],
+            'quantity' => ['required', 'integer'],
+            'color' => ['required', 'string'],
+            'per_case' => ['required', 'integer'],
+            'expected_arrival_date' => ['required', 'date'],
+            'order_by' => ['required', 'integer'],
         ];
     }
     /**
@@ -51,7 +51,7 @@ class OrderRequest extends FormRequest
             'color' => 'カラー',
             'per_case' => '入り数',
             'purchase_price' => '下代',
-            
+
         ];
     }
     /**
@@ -62,16 +62,16 @@ class OrderRequest extends FormRequest
     public function filter()
     {
         return [
-            'order_number'          => $this->order_number,
+            'order_number' => $this->order_number,
             'expected_arrival_date' => date($this->expected_arrival_date),
-            'product_name'          => $this->product_name,
-            'product_id'            => (int) $this->product_id,
-            'maker_id'              => (int) $this->maker_id,
-            'order_by'              => (int) $this->order_by,
-            'quantity'              => (int) $this->quantity,
-            'color'                 => $this->color,
-            'per_case'              => (int) $this->per_case,
-            'purchase_price'        => $this->purchase_price,
+            'product_name' => $this->product_name,
+            'product_id' => (int) $this->product_id,
+            'maker_id' => (int) $this->maker_id,
+            'order_by' => (int) $this->order_by,
+            'quantity' => (int) $this->quantity,
+            'color' => $this->color,
+            'per_case' => (int) $this->per_case,
+            'purchase_price' => $this->purchase_price,
         ];
     }
 }

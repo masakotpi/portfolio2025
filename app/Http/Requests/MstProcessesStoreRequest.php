@@ -15,7 +15,7 @@ class MstProcessesStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true; //Auth::check();
     }
 
     /**
@@ -25,8 +25,8 @@ class MstProcessesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'           => ['required','integer'],
-            'process'        => ['required','string'],
+            'type' => ['required', 'integer'],
+            'process' => ['required', 'string'],
         ];
     }
     /**
@@ -37,8 +37,8 @@ class MstProcessesStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'type'               => 'タイプ',
-            'process'           => '工程',
+            'type' => 'タイプ',
+            'process' => '工程',
         ];
     }
     /**
@@ -49,8 +49,8 @@ class MstProcessesStoreRequest extends FormRequest
     public function filter()
     {
         return [
-            'type'          =>  $this->type,
-            'process'       => $this->process,
+            'type' => $this->type,
+            'process' => $this->process,
         ];
     }
 }

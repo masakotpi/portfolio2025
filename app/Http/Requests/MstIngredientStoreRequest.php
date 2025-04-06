@@ -15,7 +15,7 @@ class MstIngredientStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true; //Auth::check();
     }
 
     /**
@@ -25,8 +25,8 @@ class MstIngredientStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'           => ['required','string'],
-            'unit'           => ['required','string'],
+            'name' => ['required', 'string'],
+            'unit' => ['required', 'string'],
         ];
     }
     /**
@@ -37,8 +37,8 @@ class MstIngredientStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'           => '材料名',
-            'unit'           => '単位',
+            'name' => '材料名',
+            'unit' => '単位',
         ];
     }
     /**
@@ -49,8 +49,8 @@ class MstIngredientStoreRequest extends FormRequest
     public function filter()
     {
         return [
-            'name'          => (string) $this->name,
-            'unit'          => (string) $this->unit,
+            'name' => (string) $this->name,
+            'unit' => (string) $this->unit,
         ];
     }
 }
