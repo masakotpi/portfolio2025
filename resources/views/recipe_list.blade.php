@@ -140,7 +140,8 @@ $color  = [
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/recipes.js') }}"></script>
+<script src="<?php echo asset('js/recipes.js'); ?>"></script>
+{{-- <script src="{{ asset('js/recipes.js') }}"></script> --}}
 
 <script>
   $(document).ready(function () {
