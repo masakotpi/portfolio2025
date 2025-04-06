@@ -51,7 +51,7 @@
     </form>
     
        {{-- 更新 --}}
-    <td><button type="submit" formaction="{{route('mst_ingredients_store')}}" class="button btn-primary btn-sm">登録</button></td>
+    <td><button type="submit" formaction="/mst_ingredients" class="button btn-primary btn-sm">登録</button></td>
     </form>
     </tr>
   </thead>
@@ -67,7 +67,7 @@
     <form method="post" id="delete{{ $index }}">
       <input type="hidden" name="_method" value="DELETE">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <td><button formtype="submit" formaction="{{route('mst_ingredients_delete',['id' => $ingredient->id,'type'=>$type])}}" class="button btn-danger btn-sm">削除</button></td>
+    <td><button formtype="submit" formaction="/mst_ingredients/{{$ingredient->id}}/{{$type}}" class="button btn-danger btn-sm">削除</button></td>
     </form>
     {{-- 更新 --}}
     <form method="post" id="form{{ $index }}">
