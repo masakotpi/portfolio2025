@@ -53,30 +53,42 @@
       <div class="modal-body">
         <table class="table">
           <thead>
-            {{Form::open(['method'=>'POST'])}}
-            <tr>
-              {{Form::hidden('type',$type,['class' => 'form-control form-control-sm mb-3'])}}
-              <th scope="col" width="10%">材料名<small class="text-white badge bg-danger m-3">必須</small></th>
-              <td>{{Form::text('name','',['class'=>'form-control'])}}</td>
-            </tr>
-            <tr>
-              <th scope="col" width="10%">単位<small class="text-white badge bg-danger m-3">必須</small></th>
-              <td>{{Form::text('unit','',['class'=>'form-control'])}}</td>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" formmethod="post" class="btn btn-primary btn" formaction="{{route('mst_ingredients_store')}}">登録</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-{{Form::close()}}
+            <form method="POST" action="{{ route('mst_ingredients_store') }}">
+              @csrf
+            
+              <input type="hidden" name="type" value="{{ $type }}" class="form-control form-control-sm mb-3">
+            
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" width="10%">
+                      材料名
+                      <small class="text-white badge bg-danger m-3">必須</small>
+                    </th>
+                    <td>
+                      <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="col" width="10%">
+                      単位
+                      <small class="text-white badge bg-danger m-3">必須</small>
+                    </th>
+                    <td>
+                      <input type="text" name="unit" value="{{ old('unit') }}" class="form-control">
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">登録</button>
+              </div>
+            </form>
+            
 
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/recipes.js') }}"></script>
+<script src="/js/recipes.js"></script>

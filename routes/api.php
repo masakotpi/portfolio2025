@@ -17,21 +17,5 @@ use App\Models\MstIngredient;
 |
 */
 
-Route::get('/nikoniko', function () {
-  $data = MstIngredient::get();
-  return response()->json($data);
-//   return response()->json([
-//       'name' => 'John Doe',
-//       'email' => 'john@example.com'
-//   ]);
-});
-
-
- logger("APIルートにきたよ");
-  Route::get('/user', function (Request $request) {
-      return $request->user();
-  });
-
-
   //画像アップロード
   Route::post('/recipes/image', [RecipeController::class, 'upload'])->name('image_upload');
