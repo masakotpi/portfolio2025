@@ -66,7 +66,7 @@
                       <small class="text-white badge bg-danger m-3">必須</small>
                     </th>
                     <td>
-                      <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                      <input type="text" name="name" value="" class="form-control">
                     </td>
                   </tr>
                   <tr>
@@ -75,7 +75,7 @@
                       <small class="text-white badge bg-danger m-3">必須</small>
                     </th>
                     <td>
-                      <input type="text" name="unit" value="{{ old('unit') }}" class="form-control">
+                      <input type="text" name="unit" value="" class="form-control">
                     </td>
                   </tr>
                 </thead>
