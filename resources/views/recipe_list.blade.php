@@ -31,7 +31,7 @@ $color  = [
 <div class="container-fluid">
   <div class="card text-start mb-5">
     <div class="card-body">
-      <form action="{{ route('recipes_list') }}" method="get" id="search">
+      <form action="/recipes" method="get" id="search">
 
       <h4 class="card-title">検索</h4>
       <div class="input-group flex-nowrap my-4">
@@ -102,7 +102,6 @@ $color  = [
       </tr>
       <tr class="bg-white" style="height:200px">
         <td width="20%">
-          {{Form::open()}}
           <form action="" method="post" enctype="multipart/form-data">
             <div class="imagePreview"></div>
             <div class="input-group">
@@ -113,7 +112,6 @@ $color  = [
               @endif
             </div>
           </form>
-         {{Form::close()}}
 
         </td>
         <td width="30%" class="bg-white">
