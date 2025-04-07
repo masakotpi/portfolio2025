@@ -11,7 +11,12 @@ class RecipeShowUsecase
 {
   public function __invoke(int $id)
   {
-    $recipe = Recipe::with('ingredient.mstIngredient','process')->find($id);
+    $recipe = Recipe::with([
+      'ingredient.mstIngredient',
+      'process' => function ($query) {
+          $query->orderBy('number');
+      }
+  ])->find($id);
     $mst_ingredient_selector = MstIngredient::where('type', 'like', "%$recipe->type%")->pluck('name','id');
 
     return compact('recipe','mst_ingredient_selector') ;

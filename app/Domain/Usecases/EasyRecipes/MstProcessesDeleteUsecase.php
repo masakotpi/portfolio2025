@@ -11,11 +11,5 @@ class MstProcessesDeleteUsecase
   {
     $mst_process = MstProcess::findOrFail($id);
     $mst_process->delete();
-
-    // $mst_process = MstProcess::find($id);
-    // if(is_null($mst_process)){
-    //   throw new exception('工程が見つかりません。');
-    // }
-    // $mst_process->delete();
   }
 }

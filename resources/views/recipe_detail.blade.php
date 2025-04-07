@@ -43,33 +43,42 @@
           <td width="10%">{{$index+1}}</td>
           <td width="40%">{{$ingredient->mstIngredient->name}}</td>
           <td >
-            {{Form::text('amount',$ingredient->amount,['class'=>'form-control d-inline w-25'])}}
+            <input type="text" name="amount[]" value="{{$ingredient->amount}}" class="form-control d-inline w-25">
             <span>{{$ingredient->mstIngredient->unit}}</span>
           </td>
           <td>
-            {{Form::open(['method' => 'delete', 'id' =>'delete'.$index])}}
-            <td><button formtype="submit" formaction="{{route('ingredients_delete',['id' => $ingredient->id])}}" class="button btn-danger btn-sm">削除</button></td>
-            {{Form::close()}}
+            {{-- 材料削除 --}}
+            <form method="post" action="/ingredients/delete/{{$ingredient->id}}" id="delete{{$index}}">
+              @csrf
+              @method('DELETE')
+            <td><button type="submit" class="button btn-danger btn-sm">削除</button></td>
+            </form>
           </td>
         </tr>
         @endforeach
-        {{-- 材料新規登録 --}}
         <tr class="">
-          {{Form::open(['method' => 'post'])}}
+          {{-- 材料登録 --}}
+          <form method="post" action="/ingredients"> @csrf
           <td width="10%">@if(isset($index)){{$index+2}} @else 1 @endif</td>
           <td>
-            {{Form::select('mst_ingredient_id[]',$mst_ingredient_selector,'',['class'=>'form-control d-inline w-100','placeholder'=>'材料を選択してください'])}}
+            <select name="mst_ingredient_id[]" class="form-control d-inline w-100">
+              <option value="">材料を選択してください</option>
+              <?php foreach ($mst_ingredient_selector as $value => $label): ?>
+                <option value="<?= htmlspecialchars($value) ?>"><?= htmlspecialchars($label) ?></option>
+              <?php endforeach; ?>
+            </select>
+            
           </td>
           <td>
-            {{Form::text('amount[]','',['class'=>'form-control d-inline w-25'])}}
-            {{Form::hidden('recipe_id',$recipe->id)}}
-            {{Form::hidden('type',$recipe->type)}}
-            {{Form::hidden('name',$recipe->name)}}
+            <input type="text" name="amount" value="" class="form-control d-inline w-25">
+            <input type="hidden" name="recipe_id" value="{{$recipe->id}}" >
+            <input type="hidden" name="type" value="{{$recipe->type}}" >
+            <input type="hidden" name="name" value="{{$recipe->name}}" >
           </td>
           <td>
            
-            <td><button formtype="submit" formaction="{{route('ingredients_store')}}" class="button btn-primary btn-sm">新規登録</button></td>
-            {{Form::close()}}
+            <td><button type="submit" class="button btn-primary btn-sm">新規登録</button></td>
+            </form>
           </td>
         </tr>
       </tbody>
@@ -84,33 +93,42 @@
       <tbody>
         @foreach ($recipe->process as $index => $process)
         <tr class="">
-          {{Form::open(['method' => 'put', 'id' =>'update'.$index])}}
+           {{-- 工程新規更新 --}}
+          <form method="post" action="/process/{{$process->id}}" id="update{{$process->id}}">
+            @csrf
+            @method('PUT')
           <td width="10%">{{$index+1}}</td>
-          <td>{{Form::text('process',$process->process,['class'=>'form-control'])}}</td>
+          <td><input type="text" name="process" value="{{$process->process}}" class="form-control"></td>
           <td>
-            <td><button formtype="submit" formaction="{{route('process_update',['id' => $process->id])}}" class="button btn-primary btn-sm">更新</button></td>
-            {{Form::close()}}
+            <td><button type="submit" class="button btn-primary btn-sm">更新</button></td>
+            </form>
           </td>
           <td>
-            {{Form::open(['method' => 'delete', 'id' =>'delete'.$index])}}
-            <td><button formtype="submit" formaction="{{route('process_delete',['id' => $process->id])}}" class="button btn-danger btn-sm">削除</button></td>
-            {{Form::close()}}
+             {{-- 工程新規削除 --}}
+            <form method="post" action="/process/{{$process->id}}" id="delete{{$process->id}}">
+              @csrf
+              @method('DELETE')
+            <td><button type="submit" class="button btn-danger btn-sm">削除</button></td>
+            </form>
           </td>
         </tr>
         @endforeach
+
+        
         {{-- 工程新規登録 --}}
         <tr class="">
-          {{Form::open(['method' => 'post'])}}
+          <form method="post" action="/recipes/process">  
+            @csrf
           <td width="10%">@if(isset($index)){{$index+2}} @else 1 @endif</td>
           <td>
-            {{Form::text('process[]','',['class'=>'form-control d-inline w-100'])}}
+            <input type="text" name="process[]" value="" class="form-control d-inline w-100'">
           </td>
-            {{Form::hidden('recipe_id',$recipe->id)}}
-            {{Form::hidden('is_return',true)}}
-            {{Form::hidden('number',$index ? $index+1 : 0)}}
+          <input type="hidden" name="recipe_id" value="{{$recipe->id}}">
+          <input type="hidden" name="is_return" value="{{true}}">
+          <input type="hidden" name="number" value="{{count($recipe->process)+1}}">
           <td>
-            <td><button formtype="submit" formaction="{{route('process_store')}}" class="button btn-primary btn-sm">新規登録</button></td>
-            {{Form::close()}}
+            <td><button type="submit" class="button btn-primary btn-sm">新規登録</button></td>
+            </form>
           </td>
         </tr>
       </tbody>

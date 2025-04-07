@@ -54,8 +54,8 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['stderr'],
-            // 'channels' => explode(',', env('LOG_STACK', 'single')),　オリジナルはこれ：tm
+            // 'channels' => ['stderr'],
+            'channels' => explode(',', env('LOG_STACK', 'single')),//オリジナルはこれ：tm
             'ignore_exceptions' => false,
         ],
 

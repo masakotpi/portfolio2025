@@ -154,14 +154,15 @@ class RecipeController extends Controller
      */
     public function ingredientsStore(IngredientStoreRequest $request, IngredientsStoreUsecase $usecase)
     {
-        DB::beginTransaction();
-        try {
-            $data = $usecase->__invoke($request->all());
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors("材料登録に失敗しました。：".$e->getMessage());
-        }
+        $data = $usecase->__invoke($request->all());
+        // DB::beginTransaction();
+        // try {
+        //     $data = $usecase->__invoke($request->all());
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors("材料登録に失敗しました。：".$e->getMessage());
+        // }
         if($request['recipe_id']){
             return back()->with('flash_message','材料を追加しました');
         }else{
@@ -194,14 +195,15 @@ class RecipeController extends Controller
      */
     public function processStore(Request $request, ProcessStoreUsecase $usecase)
     {
-        DB::beginTransaction();
-        try {
-            $usecase->__invoke($request->all());
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
+        $usecase->__invoke($request->all());
+        // DB::beginTransaction();
+        // try {
+        //     $usecase->__invoke($request->all());
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors($e->getMessage());
+        // }
         if(isset($request['is_return'])){
             return back()->with('flash_message','工程を追加しました');
         }else{
@@ -216,14 +218,15 @@ class RecipeController extends Controller
      */
     public function processUpdate(int $id, Request $request, ProcessUpdateUsecase $usecase)
     {
-        DB::beginTransaction();
-        try {
-            $usecase->__invoke($id, $request);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
+        $usecase->__invoke($id, $request);
+        // DB::beginTransaction();
+        // try {
+        //     $usecase->__invoke($id, $request);
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors($e->getMessage());
+        // }
         return redirect()->back()->with('flash_message','更新しました。');
 
     }
@@ -233,15 +236,18 @@ class RecipeController extends Controller
      */
     public function processDelete(int $id)
     {
-        try {
-            DB::beginTransaction();
-            $recipe =  Process::destroy($id);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
+        $recipe =  Process::destroy($id);
         return redirect()->back()->with('flash_message','工程を削除しました');
+
+        // try {
+        //     logger("工程削除：".$id);
+        //     DB::beginTransaction();
+        //     $recipe =  Process::destroy($id);
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors($e->getMessage());
+        // }
 
     }
     /**
