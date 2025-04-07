@@ -70,10 +70,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     private $route_files = [
         // 'auth.php',
-        // 'product_manager.php',
         'portfolio.php',
         'recipe.php',
         'api.php',
+        'product_manager.php',
     ];
 
 

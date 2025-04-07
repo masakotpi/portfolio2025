@@ -7,14 +7,25 @@
 
 @section('content')
 
+{{-- //発注一覧
+Route::get('/orders', [OrderController::class,'index'])->name('order_index');
+//発注更新
+Route::put('/orders/{id}', [OrderController::class, 'update'])->name('order_update');
+//PDF発注書発行
+//入荷予定更新
+Route::post('/orders/issue_po', [OrderController::class, 'issuePo'])->name('issue_po');
+//注文削除
+Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_delete'); --}}
+
 
 
 <!-- 入荷予定更新 -->
-{{Form::open(['method' => 'post','id' => 'update_shipping', 'class' => 'text-right'])}}
-  <button type="submit" id="update_shipping" formmethod="post" class="btn-sm btn-primary" 
-  formaction="{{route('order_update_shippings')}}" title="入荷予定を動かして更新をしてください">入荷予定日更新</button>
-{{Form::close()}}
-
+<form method="post" id="update_shipping" class="text-right" action="/orders/shippings">
+  @csrf
+  <button type="submit" class="btn-sm btn-primary" title="入荷予定を動かして更新をしてください">
+    入荷予定日更新
+  </button>
+</form>
 
 
 
@@ -37,15 +48,20 @@
       <!-- 入荷予定日 -->
       <tr class="arrival_date unsortable" data-date="{{$arrival_date}}">
         <td colspan="8" class="bg-primary text-white py-1">
-          {{Form::date('arrival_date',$arrival_date,['class' => 'form-control w-25 p-0 bg-primary text-white text-center'])}}</td>
-      </tr>
-      {{Form::open()}}
+          <input type="date" name="arrival_date" value="{{ $arrival_date }}" class="form-control w-25 p-0 bg-primary text-white text-center">
+        </td>
+        </tr>
+
+        <form method="post"  action="/orders/delete">
+        @csrf
+        
 
       @foreach($value as $index => $order)
       <!-- 入荷詳細 -->
         <tr class="child" data-date="{{$arrival_date}}"  data-id="{{@$order['id']}}" title="注文を動かして「入荷予定日更新」をクリックすると予定日を変更できます。">
-                <td>{{Form::checkbox('order_ids[]',$order['id'],null,['class' => 'each_ids'])}}
-                    {{Form::hidden("order_by[$arrival_date][]",@$order['id'],['form' => 'update_shipping', 'class' => 'order_by'])}}</td>
+          <td>
+            <input type="checkbox" name="order_ids[]" value="{{ $order['id'] }}" class="each_ids">
+            <input type="hidden" name="order_by[{{ $arrival_date }}][]" value="{{ $order['id'] }}" form="update_shipping" class="order_by"></td>
                 <td>{{$order['order_number']}}</td>
                 <td>{{$order['product_name']}}<br><small>{{$maker_list[@$order['maker_id']]}}</small></td>
                 <td>{{$order['quantity']}}</td>
@@ -70,8 +86,7 @@
 
 
 <!-- 発注書発行 -->
-  <button type="submit" id="issue_po" formmethod="post" class="btn-sm btn-primary " 
-  formaction="{{route('issue_po')}}">発注書発行</button>
+  <button type="submit" id="issue_po" formmethod="post" class="btn-sm btn-primary " action="/orders/issue_po">発注書発行</button>
 
 <!-- 発注モーダルボタン -->
   <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">
@@ -79,9 +94,8 @@
   </button>
   
 <!-- 削除 -->
-    <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" 
-    formaction="{{route('order_delete')}}">一括削除</button>
-  {{form::close()}}
+    <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" action="/orders/delete">一括削除</button>
+  </form>
 
 
 
@@ -96,52 +110,90 @@
       <div class="modal-body">
         <table class="table">
           <thead>
-            {{Form::open(['method'=>'POST'])}}
+            <form method="POST" action="/orders/new">
+              @csrf
               <tr>
-                <th scope="col" width="10%">注文No.<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('order_number',$next_order_number,['class'=>'form-control'])}}</td>
+                <th scope="col" width="10%">
+                  注文No.<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="order_number" value="{{ $next_order_number }}" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">入荷予定日<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::date('expected_arrival_date',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  入荷予定日<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="date" name="expected_arrival_date" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col" width="25%" >商品名<small class="text-white badge bg-danger m-3">必須</small></th>           
-                  <td>{{Form::select('product_id',$product_list,null,['class'=>'form-control','placeholder'=>'商品名を選択すると商品情報が入力されます。'])}}</td>
+                <th scope="col" width="25%">
+                  商品名<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <select name="product_id" class="form-control">
+                    <option value="" disabled selected>商品名を選択すると商品情報が入力されます。</option>
+                    @foreach($product_list as $key => $value)
+                      <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
+                  </select>
+                </td>
               </tr>
               <tr>
-                <th scope="col">メーカー<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('maker_name', '',['class'=>'form-control maker_name'])}}
-                    {{Form::hidden('maker_id', '',['class'=>'form-control'])}}
-                    {{Form::hidden('order_by', 1,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  メーカー<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="maker_name" value="" class="form-control maker_name">
+                  <input type="hidden" name="maker_id" value="" class="form-control">
+                  <input type="hidden" name="order_by" value="1" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">数量<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::number('quantity',1,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  数量<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="number" name="quantity" value="1" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col" width="10%">カラー<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('color',null,['class'=>'form-control'])}}</td>
+                <th scope="col" width="10%">
+                  カラー<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="color" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">入り数<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::text('per_case',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  入り数<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="per_case" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">下代<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::text('purchase_price',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  下代<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="purchase_price" class="form-control">
+                </td>
               </tr>
           </thead>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" formmethod="post" class="btn btn-primary btn" formaction="{{route('order_new')}}">発注</button>
+        <button type="submit" formmethod="post" class="btn btn-primary btn">発注</button>
       </div>
     </div>
   </div>
 </div>
-{{Form::close()}}
+</form>
 
 
 <!-- 更新モーダル -->
@@ -155,54 +207,86 @@
       <div class="modal-body">
         <table class="table">
           <thead>
-            {{Form::open(['method'=>'PUT'])}}
+            <form method="POST" action="">
+              @csrf
+              @method('PUT')
               <tr>
-                <th scope="col" width="10%">注文No.<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('order_number',$next_order_number,['class'=>'form-control'])}}</td>
-                {{Form::hidden('product_id','')}}
+                <th scope="col" width="10%">
+                  注文No.<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="order_number" value="{{ $next_order_number }}" class="form-control">
+                  <input type="hidden" name="product_id" value="">
+                </td>
               </tr>
               <tr>
-                <th scope="col">入荷予定日<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::date('expected_arrival_date',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  入荷予定日<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="date" name="expected_arrival_date" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col" width="25%" >商品名<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('product_name','',['class'=>'form-control'])}}</td>           
+                <th scope="col" width="25%">
+                  商品名<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="product_name" value="" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">メーカー<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('maker_name', '',['class'=>'form-control maker_name'])}}
-                    {{Form::hidden('maker_id', '',['class'=>'form-control'])}}
-                    {{Form::hidden('order_by', 1,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  メーカー<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="maker_name" value="" class="form-control maker_name">
+                  <input type="hidden" name="maker_id" value="" class="form-control">
+                  <input type="hidden" name="order_by" value="1" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">数量<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::number('quantity',1,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  数量<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="number" name="quantity" value="1" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col" width="10%">カラー<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('color',null,['class'=>'form-control'])}}</td>
+                <th scope="col" width="10%">
+                  カラー<small class="text-white badge bg-danger m-3">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="color" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">入り数<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::text('per_case',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  入り数<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="per_case" class="form-control">
+                </td>
               </tr>
               <tr>
-                <th scope="col">下代<small class="text-white badge bg-danger m-2">必須</small></th>
-                <td>{{Form::text('purchase_price',null,['class'=>'form-control'])}}</td>
+                <th scope="col">
+                  下代<small class="text-white badge bg-danger m-2">必須</small>
+                </th>
+                <td>
+                  <input type="text" name="purchase_price" class="form-control">
+                </td>
               </tr>
-          </thead>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" formaction=""class="btn btn-primary order_update">
-                  更新</a>
-      </div>
-    </div>
-  </div>
-</div>
-{{Form::close()}}
+              </thead>
+            </table>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary order_update">更新</button>
+            </div>
+            </form>
+            
 
 
 <br><br><br><br>
@@ -229,4 +313,4 @@ maker_list = @json($maker_list);
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/order.js') }}"></script>
+<script src="js/order.js"></script>

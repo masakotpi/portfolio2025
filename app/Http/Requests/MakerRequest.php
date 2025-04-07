@@ -53,7 +53,7 @@ class MakerRequest extends FormRequest
      *
      * @return array
      */
-    public function data()
+    public function data($key = null, $default = null)
     {
         return [
             'name' => $this->name,

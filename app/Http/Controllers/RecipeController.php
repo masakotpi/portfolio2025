@@ -105,15 +105,16 @@ class RecipeController extends Controller
      */
     public function mstProcessDelete(int $id ,MstProcessesDeleteUsecase $usecase):RedirectResponse
     {
-        DB::beginTransaction();
-        try {
-            $usecase->__invoke($id);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
+        $usecase->__invoke($id);
+        // DB::beginTransaction();
+        // try {
+        //     $usecase->__invoke($id);
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
             
-            return back()->withErrors("工程削除失敗しました：".$e->getMessage());
-        }
+        //     return back()->withErrors("工程削除失敗しました：".$e->getMessage());
+        // }
         return redirect()->back()->with('flash_message','材料を削除しました。');
     }
 

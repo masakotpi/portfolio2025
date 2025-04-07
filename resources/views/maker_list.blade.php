@@ -23,26 +23,26 @@
       </tr>
     </thead>
     <tbody>
-        {{Form::open(['method'=>'POST', 'id'=>'new'])}}
-        <td></td>
-            <td>新規</td>
-            <td>{{Form::text('name',null,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('country',null,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('person_in_charge',null,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('tel',null,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('address',null,['class'=>'form-control'])}}</td>
-            <td>
-              <button type="submit" id="new" formmethod="post" class="btn btn-primary btn-sm" 
-              formaction="{{route('maker_new')}}">新規</button>
-            </td>
+      <form method="POST" action="/makers/new" id="new">
+        @csrf
+        <tr>
+          <td></td>
+          <td>新規</td>
+          <td><input type="text" name="name" class="form-control"></td>
+          <td><input type="text" name="country" class="form-control"></td>
+          <td><input type="text" name="person_in_charge" class="form-control"></td>
+          <td><input type="text" name="tel" class="form-control"></td>
+          <td><input type="text" name="address" class="form-control"></td>
+          <td>
+            <button type="submit" class="btn btn-primary btn-sm">新規</button>
+          </td>
         </tr>
-        {{Form::close()}}
+      </form>
+      
   </tbody>
 </table>
 
 
-
-{{-- <table class="table" id="datatablesSimple"> --}}
 <table class="table">
     <thead>
 
@@ -59,34 +59,44 @@
       </tr>
     </thead>
     <tbody>
-      
-      {{Form::open(['method'=>'delete', 'id' => 'delete'])}}
-        @foreach($makers as $maker)
-            <td>{{Form::checkbox('maker_ids[]',$maker->id,'',['form' => 'delete','class' => 'each_ids'])}}</td>
-            <td>{{$maker->id}}</td>
-      {{Form::close()}}
-            {{Form::open(['method'=>'PUT'])}}
-            {{Form::hidden('id',$maker->id)}}
-            <td>{{Form::text('name',$maker->name,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('country',$maker->country,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('person_in_charge',$maker->person_in_charge,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('tel',$maker->tel,['class'=>'form-control'])}}</td>
-            <td>{{Form::text('address',$maker->address,['class'=>'form-control'])}}</td>
-     
-            <td>
-              <button type="submit" method="PUT" formaction="{{route('maker_update',['id' => $maker->id])}}"class="btn-sm btn-primary">
-               更新</a>
-            </td>
-        </tr>
-        {{Form::close()}}
-        @endforeach
+      <!-- 削除用フォーム -->
+<form method="POST" action="{{ route('maker_delete') }}" id="delete">
+  @csrf
+  @method('DELETE')
+
+  @foreach($makers as $maker)
+    <tr>
+      <td>
+        <input type="checkbox" name="maker_ids[]" value="{{ $maker->id }}" class="each_ids" form="delete">
+      </td>
+      <td>{{ $maker->id }}</td>
+</form>
+
+    <!-- 更新用フォーム（各メーカーごとに1つずつ） -->
+    <form method="POST" action="/makers/{{$maker->id}}">
+      @csrf
+      @method('PUT')
+      <input type="hidden" name="id" value="{{ $maker->id }}">
+
+      <td><input type="text" name="name" value="{{ $maker->name }}" class="form-control"></td>
+      <td><input type="text" name="country" value="{{ $maker->country }}" class="form-control"></td>
+      <td><input type="text" name="person_in_charge" value="{{ $maker->person_in_charge }}" class="form-control"></td>
+      <td><input type="text" name="tel" value="{{ $maker->tel }}" class="form-control"></td>
+      <td><input type="text" name="address" value="{{ $maker->address }}" class="form-control"></td>
+
+      <td>
+        <button type="submit" class="btn-sm btn-primary">更新</button>
+      </td>
+    </tr>
+    </form>
+    @endforeach
   </tbody>
 </table>
 
 <button type="submit" formmethod="post"  form="delete" class="btn btn-primary btn-sm delete" 
-formaction="{{route('maker_delete')}}">一括削除</button>
+action="/makers/delete">一括削除</button>
   
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/products.js') }}"></script>
+<script src="/js/products.js"></script>
