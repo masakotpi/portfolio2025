@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Usecases\ProductImportCsvUsecase;
 use App\Domain\Usecases\ProductExportCsvUsecase;
 use App\Domain\Usecases\ProductIndexUsecase;
 use Illuminate\Http\Request;
@@ -39,14 +40,15 @@ class ProductController extends Controller
      */
     public function update(int $id, ProductUpdateRequest $request, ProductUpdateUsecase $usecase):RedirectResponse
     {
-        DB::beginTransaction();
-        try {
-            $usecase->__invoke($id,$request->filter());
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
+        $usecase->__invoke($id,$request->filter());
+        // DB::beginTransaction();
+        // try {
+        //     $usecase->__invoke($id,$request->filter());
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors($e->getMessage());
+        // }
         return redirect()->back()->with('flash_message', '商品を更新しました');
     }
 

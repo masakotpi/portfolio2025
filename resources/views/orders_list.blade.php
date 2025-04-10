@@ -7,18 +7,6 @@
 
 @section('content')
 
-{{-- //発注一覧
-Route::get('/orders', [OrderController::class,'index'])->name('order_index');
-//発注更新
-Route::put('/orders/{id}', [OrderController::class, 'update'])->name('order_update');
-//PDF発注書発行
-//入荷予定更新
-Route::post('/orders/issue_po', [OrderController::class, 'issuePo'])->name('issue_po');
-//注文削除
-Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_delete'); --}}
-
-
-
 <!-- 入荷予定更新 -->
 <form method="post" id="update_shipping" class="text-right" action="/orders/shippings">
   @csrf
@@ -52,7 +40,7 @@ Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_d
         </td>
         </tr>
 
-        <form method="post"  action="/orders/delete">
+        <form method="post" id="issue_po" action="/orders/issue_po">
         @csrf
         
 
@@ -86,7 +74,7 @@ Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_d
 
 
 <!-- 発注書発行 -->
-  <button type="submit" id="issue_po" formmethod="post" class="btn-sm btn-primary " action="/orders/issue_po">発注書発行</button>
+  <button type="submit" form="issue_po" class="btn-sm btn-primary">発注書PDF発行</button>
 
 <!-- 発注モーダルボタン -->
   <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">
@@ -94,7 +82,7 @@ Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_d
   </button>
   
 <!-- 削除 -->
-    <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" action="/orders/delete">一括削除</button>
+    {{-- <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" action="/orders/delete">一括削除</button> --}}
   </form>
 
 

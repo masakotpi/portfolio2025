@@ -7,15 +7,18 @@
 @section('content')
 
 <div id="app">
-{{Form::open(['method' => 'post','id' => 'delete'])}}
-<a href="{{route('products_export')}}">
-<button type="submit" formmethod="post" formaction="{{route('products_export')}}" class="btn btn-primary btn-sm">CSVエクスポート</button></a>
+{{--エクスポート--}}
+<form method="POST" id="export" action="/products/csv_export">
+  @csrf
+<button type="submit" class="btn btn-primary btn-sm">CSVエクスポート</button>
+</form>
 
 {{--インポート--}}
+<form method="POST" action="/products/csv_import">
 <button type="button" class="btn-sm btn-primary d-inline" data-bs-toggle="modal" data-bs-target="#productModal">
   CSVインポート
   </button>
-{{Form::close()}}
+</form>
 
 
 <!-- Modal -->
@@ -30,16 +33,20 @@
           <div id="result"></div>
       </div>
       <div class="modal-footer">
-        {{Form::open(['url' => route('products_import'),'method' => 'post','enctype' => "multipart/form-data"])}}
-        {{Form::file('csvdata',['multiple id' => 'csvdata'])}}
-        <button class="btn btn-primary btn-sm">送信</button>
-        <button type="submit" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">close</button>
+        {{--インポート--}}
+        <form method="POST" id="delete" action="/products/csv_import" enctype="multipart/form-data">
+          @csrf
+          <input type="file" name="csvdata" id="csvdata" multiple>
+          <button type="submit" class="btn btn-primary btn-sm">送信</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">close</button>
+        </form>
+        
       </div>
     </div>
   </div>
 </div>
 
-{{Form::close()}}
+</form>
 <table class="table">
     <thead>
       <tr>
@@ -59,38 +66,67 @@
     <tbody>
         @foreach($products as $product)
           <tr>
-            <td>{{Form::checkbox('product_ids[]',$product->id,'',['form' => 'delete','class' => 'each_ids'])}}</td>
-            <td>{{$product->id}}{{Form::hidden('id',$product->id,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('name',$product->name,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('code',$product->code,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::select('maker_id',$maker_list,@$product->maker_id,['form' => 'update'.$product->id,'class' => 'form-control','placeholder' =>'メーカーを選択する'])}}</td>
-            <td>{{Form::text('color',$product->color,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('per_case',$product->per_case,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('purchase_price',$product->purchase_price,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('selling_price',$product->selling_price,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
+            <td>
+             {{--削除--}}
+             <form method="post" id="delete" action="/products/delete">
+              @csrf
+            </form>
+
+              <input type="checkbox" name="product_ids[]" value="{{ $product->id }}" form="export" class="each_ids">
+          </td>
+          <td>
+              {{ $product->id }}
+              <input type="hidden" name="id" value="{{ $product->id }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <input type="text" name="name" value="{{ $product->name }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <input type="text" name="code" value="{{ $product->code }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <select name="maker_id" form="update{{ $product->id }}" class="form-control">
+                  <option value="" disabled {{ $product->maker_id ? '' : 'selected' }}>メーカーを選択する</option>
+                  @foreach($maker_list as $key => $value)
+                      <option value="{{ $key }}" {{ $product->maker_id == $key ? 'selected' : '' }}>{{ $value }}</option>
+                  @endforeach
+              </select>
+          </td>
+          <td>
+              <input type="text" name="color" value="{{ $product->color }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <input type="text" name="per_case" value="{{ $product->per_case }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <input type="text" name="purchase_price" value="{{ $product->purchase_price }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          <td>
+              <input type="text" name="selling_price" value="{{ $product->selling_price }}" form="update{{ $product->id }}" class="form-control">
+          </td>
+          
             <td><input v-model="vue_test" form="'update'.{{$product->id}}" class="form-control">
               {{--更新--}}
-              {{Form::open(['method' => 'put','id' => 'update'.$product->id])}}
+              <form method="post" id="update{{ $product->id }}">
+                @csrf
+                @method('PUT')
                 <button type="submit" formaction="{{route('product_update',['id' => $product->id])}}"class="btn btn-outline-primary">
                 <i class="far fa-edit"></i></button></a>
-              {{Form::close()}}
+              </form>
               </td>
           </tr>
         @endforeach
   </tbody>
 </table>
 
-{{--削除とエクスポート--}}
-{{Form::open(['method' => 'post','id' => 'delete'])}}
-<button type="submit" id="delete" formmethod="post" class="btn btn-secondary btn-sm delete" 
-formaction="{{route('product_delete')}}">一括削除</button>
+{{--削除--}}
+{{-- <button type="submit" form="delete" class="btn btn-secondary btn-sm delete">一括削除</button> --}}
 </div>
-  
 
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/products.js') }}"></script>
+<script src="/js/products.js"></script>
 
 <script>
   new Vue({

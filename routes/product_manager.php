@@ -37,9 +37,9 @@ use App\Http\Controllers\MakerController;
   Route::post('/orders/new', [OrderController::class, 'store'])->name('order_new');
   //発注更新
   Route::put('/orders/{id}', [OrderController::class, 'update'])->name('order_update');
-  //PDF発注書発行
+   //入荷予定更新
   Route::post('/orders/shippings', [OrderController::class, 'updateShippings'])->name('order_update_shippings');
-  //入荷予定更新
+  //PDF発注書発行
   Route::post('/orders/issue_po', [OrderController::class, 'issuePo'])->name('issue_po');
   //注文削除
   Route::post('/orders/delete', [OrderController::class, 'delete'])->name('order_delete');

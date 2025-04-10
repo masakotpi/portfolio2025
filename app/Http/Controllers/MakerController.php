@@ -47,12 +47,14 @@ class MakerController extends Controller
      */
     public function update(int $id, Request $request):RedirectResponse
     {
-        try {
-            $maker = Maker::find($request->id);
-            $maker->fill($request->all())->save();
-        } catch (Exception $e) {
-            return back()->withErrors($e->getMessage());
-        }
+        $maker = Maker::find($request->id);
+        $maker->fill($request->all())->save();
+        // try {
+        //     $maker = Maker::find($request->id);
+        //     $maker->fill($request->all())->save();
+        // } catch (Exception $e) {
+        //     return back()->withErrors($e->getMessage());
+        // }
         return back()->with('flash_message', '商品を更新しました');
     }
 
