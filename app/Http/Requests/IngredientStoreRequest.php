@@ -24,11 +24,13 @@ class IngredientStoreRequest extends FormRequest
      */
     public function rules()
     {
+        logger("材料登録リクエスト");
+        logger($this->all());
         return [
             'type' => ['required', 'string'],
             'mst_ingredient_id.*' => ['required', 'string', 'distinct'],
             'name' => ['required', 'string'],
-            'amount.*' => ['required', 'integer', 'min:1'],
+            'amount' => ['required', 'integer', 'min:1'],
         ];
     }
     /**
@@ -42,7 +44,7 @@ class IngredientStoreRequest extends FormRequest
             'type' => 'タイプ',
             'mst_ingredient_id.*' => '材料名',
             'name' => 'レシピ名',
-            'amount.*' => '分量',
+            'amount' => '分量',
             'unit' => '単位',
         ];
     }
