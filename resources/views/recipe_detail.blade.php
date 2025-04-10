@@ -26,7 +26,7 @@
   </h2>
   @if ($recipe->main_image)
     <div style="width: 500px;">
-      <img src="{{$recipe->main_image}}" alt="" width="100%">
+      <img src="/{{$recipe->main_image}}" alt="" width="100%">
     </div>
   @endif
   {{-- 材料テーブル --}}
