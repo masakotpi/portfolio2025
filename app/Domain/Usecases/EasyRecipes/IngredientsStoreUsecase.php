@@ -30,7 +30,7 @@ class IngredientsStoreUsecase
       $ingredient = Ingredient::create([
         'recipe_id' => $recipe->id ?? $request['recipe_id'],
         'mst_ingredient_id' => $mst_ingredient_id,
-        'amount' => $request['amount'][$index]
+        'amount' => $request['amount']
       ]);
     }
     return Recipe::with('ingredient')->find($recipe->id ?? $request['recipe_id']);

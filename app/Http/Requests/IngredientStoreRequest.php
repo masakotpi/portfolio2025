@@ -24,8 +24,6 @@ class IngredientStoreRequest extends FormRequest
      */
     public function rules()
     {
-        logger("材料登録リクエスト");
-        logger($this->all());
         return [
             'type' => ['required', 'string'],
             'mst_ingredient_id.*' => ['required', 'string', 'distinct'],
