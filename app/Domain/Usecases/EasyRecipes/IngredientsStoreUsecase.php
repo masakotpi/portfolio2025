@@ -11,22 +11,18 @@ class IngredientsStoreUsecase
 {
   public function __invoke($request)
   {
-    logger($request);
     if(!isset($request['recipe_id'])){
       $recipe = Recipe::create([
         'name' => $request['name'],
         'type' => $request['type'],
         'updated_at' => Carbon::now(),
         'created_at' => Carbon::now(),
-        'main_image' => "",
-        'kcal' => "",
-        'time' => "",
-        'cost' => "",
+        'main_image' => null,
+        'kcal' => null,
+        'time' => null,
+        'cost' => null,
       ]);
-
-      logger("登録するぞ".$recipe);
     }
-    logger("ここまできた");
     if(!isset($request['mst_ingredient_id'])){
       throw new Exception('材料を選択してください。');
     }
