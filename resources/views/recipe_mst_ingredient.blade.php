@@ -40,7 +40,6 @@
     <tr>
       <form method="post" action="/mst_ingredients">
         @csrf
-     
             <tr>
               <input type="hidden" name="type" value="{{ $type }}" class="form-control">
                 <td width="40%"><input type="text" name="name" class="form-control" placeholder="小麦粉"></td>

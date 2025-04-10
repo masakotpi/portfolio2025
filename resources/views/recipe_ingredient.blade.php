@@ -55,7 +55,6 @@
         <table class="table">
           <thead>
             <form method="POST" action="/mst_ingredients">
-            {{-- <form method="POST" action="{{ route('mst_ingredients_store') }}"> --}}
               @csrf
             
               <input type="hidden" name="type" value="{{ $type }}" class="form-control form-control-sm mb-3">
