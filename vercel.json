@@ -26,15 +26,6 @@
       "LOG_CHANNEL": "stderr",
       "SESSION_DRIVER": "cookie",
       "VIEW_COMPILED_PATH": "/tmp",
-      
-      "DB_CONNECTION" : "pgsql",
-      "DB_HOST" : "ep-twilight-unit-a1waa9ob-pooler.ap-southeast-1.aws.neon.tech",
-      "DB_PORT" : "5432",
-      "DB_DATABASE" : "neondb",
-      "DB_USERNAME" : "neondb_owner",
-      "DB_PASSWORD" : "npg_s1CAzjOcnbH9",
-      "DATABASE_URL" : "postgres://neondb_owner:npg_s1CAzjOcnbH9@ep-twilight-unit-a1waa9ob-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-      
   },
   "rewrites": [
       { "source": "/", "destination": "/api/index.php" },
