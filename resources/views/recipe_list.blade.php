@@ -104,9 +104,9 @@ $color  = [
         <td width="20%">
           <form action="" method="post" enctype="multipart/form-data">
             <div class="imagePreview"></div>
-            <div class="input-group">
+            <div class="input-group" style="height:190px; width:100%;">
               @if ($recipe->main_image)
-              <img src="/{{$recipe->main_image}}" width="100%" id="main_image{{$index}}">
+              <img src="/{{$recipe->main_image}}" style="object-fit: cover; width: 100%; height: 100%;" id="main_image{{$index}}">
               @else
               <img src="{{Storage::url($recipe->main_image)}}" class="d-none" width="100%" id="main_image{{$index}}">
               @endif
