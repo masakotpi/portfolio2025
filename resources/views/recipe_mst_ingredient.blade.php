@@ -66,14 +66,15 @@
     {{-- 削除 --}}
     <form method="post" id="delete{{ $index }}" action="/mst_ingredients/{{$ingredient->id}}/{{$type}}">
       @csrf
-      <input type="hidden" name="_method" value="DELETE">
+      @method('DELETE')
       <input type="hidden" name="id" value="{{$ingredient->id}}">
       <input type="hidden" name="type" value="{{$type}}">
       <td><button type="submit" class="button btn-danger btn">削除</button></td>
   </form>
     {{-- 更新 --}}
-    <form method="PUT" id="form{{ $index }}">
-      <input type="hidden" name="_method" value="PUT">
+    <form method="post" id="form{{ $index }}">
+      @csrf
+      @method('PUT')
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <td><button type="submit" formaction="/mst_ingredients/{{$ingredient->id}}" class="button btn-primary btn">更新</button></td>
     </form>
@@ -84,7 +85,7 @@
 @endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="{{ asset('js/recipes.js') }}"></script>
+<script src="/js/recipes.js"></script>
 
 <style>
   table {

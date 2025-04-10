@@ -68,7 +68,7 @@
     
     
     
-    <button type="submit"  formaction="{{route('process_store')}}" class="btn btn-danger d-block">送信</button>
+    <button type="submit"  formaction="/mst_processes" class="btn btn-danger d-block">送信</button>
     
   </form>
       
@@ -84,7 +84,8 @@
           <div class="modal-body">
             <table class="table">
               <thead>
-                <form method="POST" action="">
+                <form method="POST" action="/mst_processes">
+                  @csrf
                 <tr>
                   <input type="hidden" name="type" value="{{$recipe['type']}}" class="form-control form-control-sm mb-3">
                   <th scope="col" width="10%">工程名<small class="text-white badge bg-danger m-3">必須</small></th>
@@ -96,7 +97,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" formmethod="post" class="btn btn-primary btn" formaction="{{route('mst_process_store')}}">登録</button>
+            <button type="submit" class="btn btn-primary btn" >登録</button>
           </div>
         </div>
       </div>
@@ -107,4 +108,4 @@
     @endsection
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="{{ asset('js/recipes.js') }}"></script>
+    <script src="/js/recipes.js"></script>

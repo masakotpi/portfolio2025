@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MstIngredientStoreRequest;
 use App\Http\Requests\MstProcessesStoreRequest;
 use App\Http\Requests\IngredientStoreRequest;
+use App\Http\Requests\ProcessStoreRequest;
 use App\Domain\Usecases\EasyRecipes\IngredientsIndexUsecase;
 use App\Domain\Usecases\EasyRecipes\MstIngredientsStoreUsecase;
 use App\Domain\Usecases\EasyRecipes\MstIngredientsUpdateUsecase;
@@ -45,8 +46,9 @@ class RecipeController extends Controller
     /**
      * 材料マスター登録
      */
-    public function mstIngredientsStore(MstIngredientStoreRequest  $request,MstIngredientsStoreUsecase $usecase):RedirectResponse
+    public function mstIngredientsStore(MstIngredientStoreRequest $request,MstIngredientsStoreUsecase $usecase):RedirectResponse
     {
+        
         $usecase->__invoke($request);
         return redirect()->back()->with('flash_message','材料を登録しました。');
     }
@@ -63,15 +65,15 @@ class RecipeController extends Controller
      */
     public function mstIngredientsDelete(int $id ,string $type,MstIngredientsDeleteUsecase $usecase):RedirectResponse
     {
-
-        DB::beginTransaction();
-        try {
-            $usecase->__invoke($id,$type);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
+        $usecase->__invoke($id,$type);
+        // DB::beginTransaction();
+        // try {
+        //     $usecase->__invoke($id,$type);
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     return back()->withErrors($e->getMessage());
+        // }
         return redirect()->back()->with('flash_message','材料を削除しました。');
     }
     /**
@@ -88,7 +90,6 @@ class RecipeController extends Controller
     public function mstProcessStore(MstProcessesStoreRequest $request, MstProcessesStoreUsecase $usecase):RedirectResponse
     {
         $usecase->__invoke($request->filter());
-        
         return redirect()->back()->with('flash_message','工程を登録しました。');
 
     }
@@ -191,10 +192,8 @@ class RecipeController extends Controller
 
     /**
      * 工程登録
-     *
-     * @param  Request  $request
      */
-    public function processStore(Request $request, ProcessStoreUsecase $usecase)
+    public function processStore(ProcessStoreRequest $request, ProcessStoreUsecase $usecase)
     {
         $usecase->__invoke($request->all());
         // DB::beginTransaction();

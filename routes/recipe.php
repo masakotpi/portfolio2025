@@ -26,7 +26,6 @@ Route::post('/mst_ingredients', [RecipeController::class, 'mstIngredientsStore']
 Route::delete('/mst_ingredients/{id}/{type}', [RecipeController::class, 'mstIngredientsDelete'])->name('mst_ingredients_delete');
 //材料マスタ更新
 Route::put('/mst_ingredients/{id}', [RecipeController::class, 'mstIngredientsUpdate'])->name('mst_ingredients_update');
-
 //工程マスタ一覧
 Route::get('/mst_processes', [RecipeController::class, 'mstprocessIndex'])->name('mst_process_index');
 //工程マスタ登録
