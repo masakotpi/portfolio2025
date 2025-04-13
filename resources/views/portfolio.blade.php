@@ -157,7 +157,7 @@
                     </span>
 
                     <h4 class="my-3">PHP</h4>
-                    <p class="text-muted">Year of experience : ★★★</p>
+                    <p class="text-muted">Year of experience : ★★★★★</p>
                 </div>
 
                 <div class="col-md-3">
