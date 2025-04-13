@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             IngredientTableSeeder::class,
             ProcessTableSeeder::class,
+            RecipesTableSeeder::class,
         ]);
 
         User::factory()->create([
