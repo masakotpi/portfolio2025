@@ -12,8 +12,7 @@ class ProductTableSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
-     */
-    public function run()
+     */    public function run()
     {
         $product_keys =[
             'name','code','maker_id','color','per_case','purchase_price','selling_price',
